@@ -7,7 +7,9 @@ import matplotlib.pyplot as plt # Used for plotting and error checking
 # https://automaticaddison.com
 # Description: Implementation of the Lane class 
  
+# filename = 'original_lane_detection_5.jpeg'
 filename = 'highway-3151762__480.jpeg'
+# filename = 'rasthof.jpeg'
  
 class Lane:
   """
@@ -39,12 +41,24 @@ class Lane:
      
     # Four corners of the trapezoid-shaped region of interest
     # You need to find these corners manually.
-    
+
     # FOR DEFAULT IMAGE
+    # self.roi_points = np.float32([
     # (274,184), # Top-left corner
     # (0, 337), # Bottom-left corner            
     # (575,337), # Bottom-right corner
     # (371,184) # Top-right corner
+    # ])
+
+    # FOR RASTHOF IMAGE
+    # self.roi_points = np.float32([
+    # (300,286), # Top-left corner
+    # (0, 429), # Bottom-left corner            
+    # (634,429), # Bottom-right corner
+    # (450,286) # Top-right corner
+    # ])
+
+    # FOR HIGHWAY IMAGE
     self.roi_points = np.float32([
       (343,253), # Top-left corner
       (110, 478), # Bottom-left corner            
@@ -471,7 +485,7 @@ class Lane:
     # White in the regions with the purest hue colors (e.g. >80...play with
     # this value for best results).
     s_channel = hls[:, :, 2] # use only the saturation channel data
-    _, s_binary = edge.threshold(s_channel, (40, 255))
+    _, s_binary = edge.threshold(s_channel, (80, 255))
      
     # Perform binary thresholding on the R (red) channel of the 
         # original BGR video frame. 
